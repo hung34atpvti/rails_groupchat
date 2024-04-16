@@ -9,17 +9,20 @@
   = f.submit
 
 :javascript
-  document.addEventListener('DOMContentLoaded', () => {
-    App.cable.subscriptions.create({ channel: "ChatRoomsChannel", chat_room_id: #{@chat_room.id} }, {
-      connected() {
-        console.log("Connected to the channel:", this);
-      },
-      disconnected() {
-        console.log("Disconnected");
-      },
-      received(data) {
-        console.log("Received some data:", data);
-      }
-    });
+  App.cable.subscriptions.create({ channel: "ChatRoomsChannel", chat_room_id: #{@chat_room.id} }, {
+    connected() {
+      console.log("Connected to the channel:", this);
+    },
+    disconnected() {
+      console.log("Disconnected");
+    },
+    received(data) {
+      console.log("Received some data:", data);
+      updateDataRealTime(data)
+    },
   })
-
+  function updateDataRealTime(data) {
+    const messagesDiv = document.getElementById('messages')
+    const content = `<p><strong>${data.user.email}</strong>: ${data.content}</p>`;
+    messagesDiv.innerHTML += content
+  }

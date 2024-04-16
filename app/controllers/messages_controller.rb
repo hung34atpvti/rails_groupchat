@@ -6,7 +6,6 @@ class MessagesController < ApplicationController
     @message = @chat_room.messages.build(message_params)
     @message.user = current_user
     if @message.save
-      ChatRoomsChannel.broadcast_to(@chat_room, @message)
       redirect_to @chat_room
     else
       render 'chat_rooms/show'
