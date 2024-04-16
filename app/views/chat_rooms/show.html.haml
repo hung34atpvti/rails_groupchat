@@ -1,0 +1,9 @@
+%h1= @chat_room.name
+
+#messages
+  = render @chat_room.messages
+
+= form_with model: [@chat_room, @message], url: chat_room_messages_path(@chat_room) do |f|
+  = f.label :content
+  = f.text_area :content
+  = f.submit

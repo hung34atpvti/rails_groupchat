@@ -1,0 +1,9 @@
+%h1 Chat Rooms
+
+- @chat_rooms.each do |chat_room|
+  %p= link_to chat_room.name, chat_room_path(chat_room)
+
+= form_with model: @chat_room, url: chat_rooms_path do |f|
+  = f.label :name
+  = f.text_field :name
+  = f.submit
